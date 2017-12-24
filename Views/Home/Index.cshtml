@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+}
+
+<div>
+    <input type="file" />
+</div>
+
+<script>
+    $(document).ready(function () {
+        let onchange = function() {
+            let _this = $(this)[0];
+
+            let f = new FormData();
+            f.append('File', _this.files[0]);
+
+            let onSuccess = function (model) {
+                console.log(model);
+            }
+
+            $.ajax({
+                method: 'POST',
+                url: '/home/upload',
+                data: f,
+                processData: false,
+                contentType: false 
+            }).done(onSuccess);
+        };
+
+        $(document).on('change', 'input[type=file]', onchange);
+    })
+</script>
